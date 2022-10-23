@@ -11,8 +11,8 @@ class PostController extends Controller
     {
 
         $allPosts = [
-            ['id' => 1 , 'title' => 'laravel is cool', 'posted_by' => 'Ahmed', 'creation_date' => '2022-10-22'],
-            ['id' => 2 , 'title' => 'PHP deep dive', 'posted_by' => 'Mohamed', 'creation_date' => '2022-10-15'],
+            ['id' => 1 , 'title' => 'laravel is cool', 'posted_by' => 'Tarek', 'creation_date' => '2022-10-22'],
+            ['id' => 2 , 'title' => 'PHP deep dive', 'posted_by' => 'Adel', 'creation_date' => '2022-10-10'],
         ];
         return view('posts.index', [
           'posts' => $allPosts
@@ -27,7 +27,7 @@ class PostController extends Controller
     {
         $arr = [
             ['id' => 1 , 'title' => 'laravel is cool', 'posted_by' => 'Tarek', 'creation_date' => '2022-10-22','email'=>'Tarek@gmail.com'],
-            ['id' => 2 , 'title' => 'PHP deep dive', 'posted_by' => 'Adel', 'creation_date' => '2022-10-15','email'=>'Adel@gmail.com'],
+            ['id' => 2 , 'title' => 'PHP deep dive', 'posted_by' => 'Adel', 'creation_date' => '2022-10-10','email'=>'Adel@gmail.com'],
         ];
         // dd($arr);
 
