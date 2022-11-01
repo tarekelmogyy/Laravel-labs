@@ -12,6 +12,7 @@
       <th scope="col">Title</th>
       <th scope="col">Posted By</th>
       <th scope="col">Created At</th>
+      <th scope="col">Slug</th>
       <th scope="col">Actions</th>
     </tr>
   </thead>
@@ -26,11 +27,12 @@
         <td>Not defined </td>
         @endif
         <td>{{$post->created_at}}</td>
+        <td>{{$post->slug}}</td>
         <td>
-            <a href="{{route('posts.show', $post['id'])}}" class="btn btn-info">View</a>
-            {{-- <a href="{{route('posts.show', ['post' =>$post['id']])}}" class="btn btn-info">View</a> --}}
-            <a href="{{route('posts.edit', ['post' =>$post['id']])}}" class="btn btn-primary">Edit</a>
-            <form style="display:inline;" method="POST" action="{{route('posts.destroy',['post' => $post->id])}}">
+            <a href="{{route('posts.show', $post['slug'])}}" class="btn btn-info">View</a>
+            {{-- <a href="{{route('posts.show', ['post' =>$post['slug']])}}" class="btn btn-info">View</a> --}}
+            <a href="{{route('posts.edit', ['post' =>$post['slug']])}}" class="btn btn-primary">Edit</a>
+            <form style="display:inline;" method="POST" action="{{route('posts.destroy',['post' => $post->slug])}}">
             @csrf
             @method('DELETE')
             <button onclick="return confirm('Do you want to delete?')" class="btn btn-danger" type="submit">Delete</button>
@@ -40,4 +42,5 @@
     @endforeach
   </tbody>
 </table>
+{{$posts->links()}}
 @endsection

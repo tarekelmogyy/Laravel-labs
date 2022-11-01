@@ -2,6 +2,7 @@
 
 @section('title') create @endsection
 @section('content')
+<div class="container">
         <form method="POST" action="{{route('posts.store')}}">
           @csrf
             <div class="mb-3">
@@ -24,7 +25,17 @@
                 </select>
               </div>
 
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="submit" class="btn btn-primary">Create</button>
           </form>
+</div>
+          @if ($errors->any())
+    <div class="alert alert-success mt-2 container">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
 
 @endsection

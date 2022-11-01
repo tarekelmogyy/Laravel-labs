@@ -2,7 +2,8 @@
 
 @section('title') create @endsection
 @section('content')
-        <form method="POST" action="{{route('posts.update',['post' => $post->id])}}">
+<div class="container">
+        <form method="POST" action="{{route('posts.update',['post' => $post->slug])}}">
           @csrf
           @method('PUT')
             <div class="mb-3">
@@ -16,5 +17,15 @@
               </div>
             <button type="submit" class="btn btn-success">Update Post</button>
           </form>
+</div>
+@if ($errors->any())
+    <div class="alert alert-success mt-2 container">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
 
 @endsection

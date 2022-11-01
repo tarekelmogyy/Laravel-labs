@@ -1,22 +1,23 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Jobs\PruneOldPostsJob;
+use App\Http\Requests\PostRequest;
+use App\Http\Requests\UpdateRequest;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Models\Post;
 use App\Models\User;
+use App\Http\Requests;
+use App\Jobs\ProneOldPostsJob;
 
 class PostController extends Controller
 {
     //
     public function index()
     {
-        $allPosts = Post::All();
-        //dd($allPosts);
-       // $allPosts = [
-           // ['id' => 1 , 'title' => 'laravel is cool', 'posted_by' => 'Tarek', 'creation_date' => '2022-10-22'],
-           // ['id' => 2 , 'title' => 'PHP deep dive', 'posted_by' => 'Adel', 'creation_date' => '2022-10-10'],
-        //];
+        ProneOldPostsJob::dispatch();
+        $allPosts = Post::paginate(25);
         return view('posts.index', [
           'posts' => $allPosts
         ]);
@@ -28,30 +29,24 @@ class PostController extends Controller
         return view(view:'posts.create', data:['allUsers'=> $allUsers]);
     }
 
-    public function show($postId)
+    public function show($slug)
     {
-        $post = Post::find($postId);
+        $post = Post::find($slug);
         //dd($post);
-        /*$arr = [
-            ['id' => 1 , 'title' => 'laravel is cool', 'posted_by' => 'Tarek', 'creation_date' => '2022-10-22','email'=>'Tarek@gmail.com'],
-            ['id' => 2 , 'title' => 'PHP deep dive', 'posted_by' => 'Adel', 'creation_date' => '2022-10-10','email'=>'Adel@gmail.com'],
-        ];*/
-        // dd($arr);
-
         return  view('posts.show',[
             'post' => $post
         ]);
     }
-    public function edit($postId)
+    public function edit($slug)
     {
-        $post = Post::find($postId);
+        $post = Post::find($slug);
         //dd($post);
         return  view('posts.edit',[
             'post' => $post
         ]);
     }
 
-    public function store()
+    public function store(PostRequest $request)
     {
 
 
@@ -65,7 +60,7 @@ class PostController extends Controller
         );
        return to_route('posts.index');
     }
-    public function update($postId)
+    public function update($postId,UpdateRequest $request)
     {
         $data = request()->All();
         $post = Post::find($postId);
